@@ -9,7 +9,7 @@ int angle;
 const int lightSensor = A1;
 int lightVal;
 int potVal;
-int x;
+int x = 0;
 
 void setup() {
   pinMode(lightPin, OUTPUT);
@@ -18,7 +18,30 @@ void setup() {
 }
 
 void loop() {
-  
+  if(x == 1){
+    digitalWrite(lightPin, HIGH);
+    lightVal = analogRead(lightSensor);
+    if(lightVal > 600){
+       myServo.write(180);
+     }
+     else{
+       myServo.write(0);
+     }
+  }
+  else if (x == 0){
+    digitalWrite(lightPin, LOW);
+
+    potVal = analogRead(potPin);
+    Serial.print("potVal: ");
+    Serial.print(potVal);
+
+    angle = map(potVal, 0, 1023, 0, 179);
+    Serial.print(" , angle: ");
+    Serial.println(angle);
+
+    myServo.write(angle);
+    delay(15);
+  }
   
   if(Serial.available() > 0){
     String receivedString = "";
@@ -27,35 +50,25 @@ void loop() {
       receivedString += char(Serial.read());
     }
 
-
-
     Serial.println(receivedString);
 
     if(receivedString == "1"){
       x = 1;
-      while(x == 1){
-        if(receivedString == "0"){
-          exit; // added
-          x = 0;
-        }
-        else {
-          digitalWrite(lightPin, HIGH);
+//      while(x == 1){
+         digitalWrite(lightPin, HIGH);
 
-          lightVal = analogRead(lightSensor);
-          if(lightVal > 600){
-            myServo.write(180);
-          }
-          else{
-            myServo.write(0);
-          }
-        }
-      }
-      receivedString += char(Serial.read());
+         lightVal = analogRead(lightSensor);
+         if(lightVal > 600){
+           myServo.write(180);
+         }
+         else{
+           myServo.write(0);
+         }
+//      }
     }
-    else{
+    else if (x == 0){
       x = 0;
-      Serial.println("Hi");
-      while(x == 0){
+//      while(x == 0){
         digitalWrite(lightPin, LOW);
 
         potVal = analogRead(potPin);
@@ -68,8 +81,7 @@ void loop() {
 
         myServo.write(angle);
         delay(15);
-      }
-      receivedString += char(Serial.read());
+//      }
     }
   }
 }
