@@ -20,6 +20,7 @@ void setup() {
 void loop() {
   if(x == 1){
     digitalWrite(lightPin, HIGH);
+    
     lightVal = analogRead(lightSensor);
     if(lightVal > 600){
        myServo.write(180);
@@ -29,7 +30,6 @@ void loop() {
      }
   }
   else if(x == 0){
-    
     digitalWrite(lightPin, LOW);
 
     potVal = analogRead(potPin);
