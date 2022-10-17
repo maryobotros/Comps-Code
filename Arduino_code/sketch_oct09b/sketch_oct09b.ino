@@ -9,7 +9,7 @@ int angle;
 const int lightSensor = A1;
 int lightVal;
 int potVal;
-int x = 1;
+int x = 0;
 
 void setup() {
   pinMode(lightPin, OUTPUT);
