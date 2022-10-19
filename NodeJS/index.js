@@ -27,6 +27,7 @@ var app = http.createServer(function(req, res) {
 var io = require('socket.io').listen(app);
 
 io.on('connection', function(socket) {
+    console.log('Node is listening to port');
     
     socket.on('lights',function(data){
         
@@ -34,7 +35,12 @@ io.on('connection', function(socket) {
         port.write( data.status );
     
     });
-    
 });
+
+parser.on('data', function(data){
+    console.log('Received data from port: ' + data);
+
+    io.emit('data', data);
+})
 
 app.listen(3000);

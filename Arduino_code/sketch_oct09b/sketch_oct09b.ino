@@ -33,12 +33,12 @@ void loop() {
     digitalWrite(lightPin, LOW);
 
     potVal = analogRead(potPin);
-    Serial.print("potVal: ");
-    Serial.print(potVal);
+//    Serial.print("potVal: ");
+//    Serial.print(potVal);
 
     angle = map(potVal, 0, 1023, 0, 179);
-    Serial.print(" , angle: ");
-    Serial.println(angle);
+//    Serial.print(" , angle: ");
+//    Serial.println(angle);
 
     myServo.write(angle);
     delay(15);
@@ -51,11 +51,12 @@ void loop() {
       receivedString += char(Serial.read());
     }
 
-    Serial.println(receivedString);
+//    Serial.println(receivedString);
 
     if(receivedString == "1"){
       x = 1;
       digitalWrite(lightPin, HIGH);
+      Serial.println("Mode: Phototransisor");
       
       lightVal = analogRead(lightSensor);
       if(lightVal > 600){
@@ -68,14 +69,15 @@ void loop() {
     else if (receivedString == "0"){
       x = 0;
       digitalWrite(lightPin, LOW);
+      Serial.println("Mode: Potentiometer");
       
       potVal = analogRead(potPin);
-      Serial.print("potVal: ");
-      Serial.print(potVal);
+//      Serial.print("potVal: ");
+//      Serial.print(potVal);
 
       angle = map(potVal, 0, 1023, 0, 179);
-      Serial.print(" , angle: ");
-      Serial.println(angle);
+//      Serial.print(" , angle: ");
+//      Serial.println(angle);
 
       myServo.write(angle);
       delay(15);
