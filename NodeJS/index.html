@@ -8,12 +8,12 @@
    </head>
    <body>
 
-      <h1>Communicating from Node.js to an Arduino</h1>
+      <h1 id="title">Communicating from Node.js to an Arduino</h1>
 
-      <button id="lightOn">Sun Detection Mode</button>
-      <button id="lightOff">Dial Mode</button>
+      <button id="lightOn" onclick="phototransistor()">Sun Detection Mode</button>
+      <button id="lightOff" onclick="potentiometer()">Dial Mode</button>
 
-      <p id="mode">Hello</p>
+      <p id="mode">Mode: Potentiometer</p>
 
 
       <script>
@@ -25,28 +25,36 @@
             console.log(data);
          });
 
-         // When phototransister is clicked
-         document.getElementById('lightOn').onclick = function() {
+         // When phototransistor is clicked
+         function phototransistor(){
+            document.getElementById("mode").innerHTML = "Mode: Phototrasistor";
             socket.emit('lights', { "status":"1" });
-
-         };
+         }
 
          // When potentiometer is clicked
-         document.getElementById('lightOff').onclick = function(){               
+         function potentiometer(){
+            document.getElementById("mode").innerHTML = "Mode: Potentiometer";
             socket.emit('lights', { "status":"0" });
-            document.getElementById("mode").innerHTML = "Goodbye";
-         };
+         }
       </script>
 
       <style>
          *{
             background-color: black;
          }
+
+         #title{
+            color:white;
+         }
          
          #lightOn, #lightOff{
             background-color:rgb(255, 255, 255);
             color: red;
             border-radius:5px;
+         }
+
+         #mode{
+            color:white;
          }
       </style>
 
