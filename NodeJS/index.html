@@ -8,12 +8,13 @@
    </head>
    <body>
 
-      <h1 id="title">Communicating from Node.js to an Arduino</h1>
+      <h1 id="title">Smart Blinds</h1>
 
-      <button id="lightOn" onclick="phototransistor()">Sun Detection Mode</button>
-      <button id="lightOff" onclick="potentiometer()">Dial Mode</button>
+      <button id="lightOn" onclick="phototransistor()">Phototransistor Mode</button>
+      <button id="lightOff" onclick="potentiometer()">Potentiometer Mode</button>
 
       <p id="mode">Mode: Potentiometer</p>
+      <p id="status">hello</p>
 
 
       <script>
@@ -23,6 +24,13 @@
          // Logging all data gathered from socket
          socket.on('data', function(data){
             console.log(data);
+
+            if(data == "Closed"){
+               document.getElementById("status").innerHTML = "Status: Closed";
+            }
+            else if(data == "Open"){
+               document.getElementById("status").innerHTML = "Status: Open";
+            }
          });
 
          // When phototransistor is clicked
@@ -35,6 +43,11 @@
          function potentiometer(){
             document.getElementById("mode").innerHTML = "Mode: Potentiometer";
             socket.emit('lights', { "status":"0" });
+         }
+
+         // Changing status to Open
+         function statusChager(){
+            document.getElementById("status").innerHTML = "Status: Open";
          }
       </script>
 
@@ -49,11 +62,12 @@
          
          #lightOn, #lightOff{
             background-color:rgb(255, 255, 255);
-            color: red;
+            color:rgb(82, 82, 82);
             border-radius:5px;
+            border-color:gray;
          }
 
-         #mode{
+         #mode, #status{
             color:white;
          }
       </style>

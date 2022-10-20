@@ -18,15 +18,18 @@ void setup() {
 }
 
 void loop() {
+  // Reading in real time
   if(x == 1){
     digitalWrite(lightPin, HIGH);
     
     lightVal = analogRead(lightSensor);
     if(lightVal > 600){
        myServo.write(180);
+       Serial.println("Open");
      }
      else{
        myServo.write(0);
+       Serial.println("Closed");
      }
   }
   else if(x == 0){
@@ -43,7 +46,8 @@ void loop() {
     myServo.write(angle);
     delay(15);
   }
-  
+
+  // Reading from nodejs
   if(Serial.available() > 0){
     String receivedString = "";
 
@@ -61,9 +65,11 @@ void loop() {
       lightVal = analogRead(lightSensor);
       if(lightVal > 600){
          myServo.write(180);
+         Serial.println("Opened");
        }
        else{
         myServo.write(0);
+//        Serial.println("Closed");
       }
     }
     else if (receivedString == "0"){
