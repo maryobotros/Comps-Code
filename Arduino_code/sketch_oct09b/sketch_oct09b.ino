@@ -25,13 +25,11 @@ void loop() {
     lightVal = analogRead(lightSensor);
     if(lightVal > 600){
        myServo.write(180);
-       Serial.println("Open");
-       delay(100);
+       Serial.println("Open"); // Comment out in order to be able to be able to debug
      }
      else{
        myServo.write(0);
-       Serial.println("Closed");
-       delay(100);
+       Serial.println("Closed"); // Comment out in order to be able to be able to debug
      }
   }
   else if(x == 0){
@@ -41,12 +39,19 @@ void loop() {
 //    Serial.print("potVal: ");
 //    Serial.print(potVal);
 
-    angle = map(potVal, 0, 1023, 0, 179);
+    angle = map(potVal, 0, 1023, 0, 180);
 //    Serial.print(" , angle: ");
 //    Serial.println(angle);
 
     myServo.write(angle);
     delay(15);
+
+    if(angle >= 90){
+      Serial.println("Open"); // Comment out in order to be able to be able to debug
+    }
+    else if(angle < 90){
+      Serial.println("Closed"); // Comment out in order to be able to be able to debug
+    }
   }
 
   // Reading from nodejs
