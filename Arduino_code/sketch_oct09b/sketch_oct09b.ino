@@ -26,10 +26,12 @@ void loop() {
     if(lightVal > 600){
        myServo.write(180);
        Serial.println("Open");
+       delay(100);
      }
      else{
        myServo.write(0);
        Serial.println("Closed");
+       delay(100);
      }
   }
   else if(x == 0){
@@ -65,7 +67,6 @@ void loop() {
       lightVal = analogRead(lightSensor);
       if(lightVal > 600){
          myServo.write(180);
-         Serial.println("Opened");
        }
        else{
         myServo.write(0);
