@@ -11,6 +11,12 @@ int lightVal;
 int potVal;
 int x = 0;
 
+const int tempSensor = A5;
+int tempVal;
+float voltage;
+float tempInC;
+float tempInF;
+
 void setup() {
   pinMode(lightPin, OUTPUT);
   Serial.begin(9600);
@@ -53,6 +59,24 @@ void loop() {
       Serial.println("Closed"); // Comment out in order to be able to be able to debug
     }
   }
+  else if(x == 2){
+    digitalWrite(lightPin, LOW);
+
+    tempVal = analogRead(tempSensor);
+    voltage = (tempVal / 1024.0) * 5.0;
+    tempInC = (voltage - .5) * 100;
+    tempInF = (tempInC * 1.8) + 32;
+
+      
+    if(tempInF > 80.0){
+      myServo.write(180);
+    }
+    else{
+      myServo.write(0);
+    }      
+    
+  }
+  
 
   // Reading from nodejs
   if(Serial.available() > 0){
@@ -93,6 +117,23 @@ void loop() {
 
       myServo.write(angle);
       delay(15);
+    }
+    else if(receivedString == "2"){
+      x = 2;
+      digitalWrite(lightPin, LOW);
+
+      tempVal = analogRead(tempSensor);
+      voltage = (tempVal / 1024.0) * 5.0;
+      tempInC = (voltage - .5) * 100;
+      tempInF = (tempInC * 1.8) + 32;
+
+      
+      if(tempInF > 75){
+         myServo.write(180);
+       }
+       else{
+        myServo.write(0);
+      }      
     }
   }
 }

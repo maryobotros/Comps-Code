@@ -12,9 +12,13 @@
 
       <button id="lightOn" onclick="phototransistor()">Phototransistor Mode</button>
       <button id="lightOff" onclick="potentiometer()">Potentiometer Mode</button>
+      <button id="lightMiddle" onclick="temperature()">Temperature Mode</button>
 
       <p id="mode">Mode: Potentiometer</p>
       <p id="status">hello</p>
+
+      <input type="text" id="input-text" placeholder="add text" maxlength="32">
+      <input id="send-text" type="submit" value="send text">
 
 
       <script>
@@ -44,6 +48,21 @@
             document.getElementById("mode").innerHTML = "Mode: Potentiometer";
             socket.emit('lights', { "status":"0" });
          }
+
+         // When temperature is clicked
+         function temperature(){
+            document.getElementById("mode").innerHTML = "Mode: Temperature";
+            socket.emit('lights', {"status":"2"});
+         }
+
+
+         var sendTextButton = document.getElementById("send-text");
+
+         sendTextButton.addEventListener("click", function(){
+            var sendText = document.getElementById("input-text").value;
+            socket.emit('input-text', sendText)
+         });
+
       </script>
 
       <style>
@@ -55,14 +74,14 @@
             color:white;
          }
          
-         #lightOn, #lightOff{
+         #lightOn, #lightOff, #lightMiddle{
             background-color:rgb(255, 255, 255);
             color:rgb(82, 82, 82);
             border-radius:5px;
             border-color:gray;
          }
 
-         #mode, #status{
+         #mode, #status, #input-text, #send-text{
             color:white;
          }
       </style>

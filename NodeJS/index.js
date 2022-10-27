@@ -30,10 +30,14 @@ io.on('connection', function(socket) {
     console.log('Node is listening to port');
     
     socket.on('lights',function(data){
-        
         console.log( data );
         port.write( data.status );
-    
+    });
+
+    socket.on('input-text', function(data){
+        port.write('T ' + data);
+        console.log('T ' + data);
+
     });
 });
 
