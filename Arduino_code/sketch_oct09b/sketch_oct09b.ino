@@ -1,6 +1,3 @@
-// 3
-// My first attempt to try to fix the issue using variable x
-
 # include <Servo.h>
 Servo myServo;
 int lightPin = 2;
@@ -61,19 +58,24 @@ void loop() {
   }
   else if(x == 2){
     digitalWrite(lightPin, LOW);
+    Serial.println("Mode: Temperature");
 
     tempVal = analogRead(tempSensor);
     voltage = (tempVal / 1024.0) * 5.0;
     tempInC = (voltage - .5) * 100;
     tempInF = (tempInC * 1.8) + 32;
-
-      
-    if(tempInF > 80.0){
-      myServo.write(180);
+    Serial.println(tempInF);
+  
+    if(tempInF >= 90.0){
+      myServo.write(0);
+      Serial.println("Closed"); // Comment out in order to be able to be able to debug
     }
     else{
-      myServo.write(0);
-    }      
+      myServo.write(180);
+      Serial.println("Open"); // Comment out in order to be able to be able to debug
+    }
+
+    delay(1000);  
     
   }
   
@@ -121,6 +123,7 @@ void loop() {
     else if(receivedString == "2"){
       x = 2;
       digitalWrite(lightPin, LOW);
+      Serial.println("Mode: Temperature");
 
       tempVal = analogRead(tempSensor);
       voltage = (tempVal / 1024.0) * 5.0;
@@ -128,12 +131,14 @@ void loop() {
       tempInF = (tempInC * 1.8) + 32;
 
       
-      if(tempInF > 75){
-         myServo.write(180);
+      if(tempInF >= 90.0){
+         myServo.write(0);
        }
        else{
-        myServo.write(0);
-      }      
+        myServo.write(180);
+      }
+
+      delay(1000);
     }
   }
 }
