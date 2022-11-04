@@ -1,25 +1,25 @@
 <!doctype html>
 <html>
    <head>
-
       <title>Communicating from Node.js to an Arduino</title>
       <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js'></script>
-
    </head>
    <body>
 
       <h1 id="title">Smart Blinds</h1>
 
+      <!-- Buttons for the different modes  -->
       <button id="lightOn" onclick="phototransistor()">Phototransistor Mode</button>
       <button id="lightOff" onclick="potentiometer()">Potentiometer Mode</button>
       <button id="lightMiddle" onclick="temperature()">Temperature Mode</button>
 
-      <p id="mode">Mode: Potentiometer</p>
-      <p id="status">hello</p>
+      <!-- Status indicators -->
+      <p id="mode">Mode: Select a mode</p> 
+      <p id="status"></p> 
 
-      <input type="text" id="input-text" placeholder="add text" maxlength="32">
-      <input id="send-text" type="submit" value="send text">
-
+      <!-- Adjust settings for the temperature -->
+      <input id="input-text" type="text" placeholder="Enter temperature" maxlength="32">
+      <input id="send-text" type="submit" value="Set temperature threshold">
 
       <script>
          // Initializing socket variable
@@ -55,7 +55,7 @@
             socket.emit('lights', {"status":"2"});
          }
 
-
+         // Setting the temperature threshold
          var sendTextButton = document.getElementById("send-text");
 
          sendTextButton.addEventListener("click", function(){
@@ -64,6 +64,7 @@
          });
 
       </script>
+
 
       <style>
          *{
