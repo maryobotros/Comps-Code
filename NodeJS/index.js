@@ -35,9 +35,13 @@ io.on('connection', function(socket) {
     });
 
     socket.on('input-text', function(data){
+        port.write('P ' + data);
+        console.log('P ' + data);
+    });
+
+    socket.on('input-temp', function(data){
         port.write('T ' + data);
         console.log('T ' + data);
-
     });
 });
 
