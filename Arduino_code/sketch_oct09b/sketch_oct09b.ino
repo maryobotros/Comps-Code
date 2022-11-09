@@ -116,6 +116,57 @@ void loop() {
 
     delay(1000);
   }
+  else if(x == 5){
+    Serial.println("Mode: Temperature or Light");
+    
+    // Get the temperature
+    tempVal = analogRead(tempSensor);
+    voltage = (tempVal / 1024.0) * 5.0;
+    tempInC = (voltage - .5) * 100;
+    tempInF = (tempInC * 1.8) + 32;
+    Serial.println(tempInF);
+
+    // Get the light
+    lightVal = analogRead(lightSensor);
+
+    // Check temperature and light
+    if(tempInF >= 90.0 || lightVal > 600){
+       myServo.write(0);
+       Serial.println("Closed"); // Comment out in order to be able to be able to debug
+     }
+     else{
+      myServo.write(180);
+      Serial.println("Open"); // Comment out in order to be able to be able to debug
+    }
+
+    delay(1000);
+  }
+  else if(x == 6){
+    Serial.println("Mode: Temperature and Light");
+    
+    // Get the temperature
+    tempVal = analogRead(tempSensor);
+    voltage = (tempVal / 1024.0) * 5.0;
+    tempInC = (voltage - .5) * 100;
+    tempInF = (tempInC * 1.8) + 32;
+    Serial.println(tempInF);
+
+    // Get the light
+    lightVal = analogRead(lightSensor);
+
+    // Check temperature and light
+    if(tempInF >= 90.0 && lightVal > 600){
+       myServo.write(0);
+       Serial.println("Closed"); // Comment out in order to be able to be able to debug
+     }
+     else{
+      myServo.write(180);
+      Serial.println("Open"); // Comment out in order to be able to be able to debug
+    }
+
+    delay(1000);
+  }
+  
   
 
   // Reading from nodejs
@@ -177,6 +228,48 @@ void loop() {
       }
 
       delay(1000);
+    }
+    else if(receivedString == "3"){
+      x = 5;
+      Serial.println("Mode: Temperature or Light");
+
+      // Get the temperature
+      tempVal = analogRead(tempSensor);
+      voltage = (tempVal / 1024.0) * 5.0;
+      tempInC = (voltage - .5) * 100;
+      tempInF = (tempInC * 1.8) + 32;
+
+      // Get the light
+      lightVal = analogRead(lightSensor);
+
+      // Check temperature and light
+      if(tempInF >= 90.0 || lightVal > 600){
+         myServo.write(0);
+       }
+       else{
+        myServo.write(180);
+      }
+    }
+    else if(receivedString == "4"){
+      x = 6;
+      Serial.println("Mode: Temperature and Light");
+
+      // Get the temperature
+      tempVal = analogRead(tempSensor);
+      voltage = (tempVal / 1024.0) * 5.0;
+      tempInC = (voltage - .5) * 100;
+      tempInF = (tempInC * 1.8) + 32;
+
+      // Get the light
+      lightVal = analogRead(lightSensor);
+
+      // Check temperature and light
+      if(tempInF >= 90.0 && lightVal > 600){
+         myServo.write(0);
+       }
+       else{
+        myServo.write(180);
+      }
     }
     else if(receivedString.substring(0, 1) == "P"){
       x = 3;
