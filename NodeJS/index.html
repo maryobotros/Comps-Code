@@ -9,9 +9,9 @@
       <h1 id="title">Smart Blinds</h1>
 
       <!-- Buttons for the different modes  -->
-      <button id="lightOn" onclick="phototransistor()">Phototransistor Mode</button>
-      <button id="lightOff" onclick="potentiometer()">Potentiometer Mode</button>
-      <button id="lightMiddle" onclick="temperature()">Temperature Mode</button>
+      <button id="dial" onclick="potentiometer()">Potentiometer Mode</button>
+      <button id="light" onclick="phototransistor()">Phototransistor Mode</button>
+      <button id="temp" onclick="temperature()">Temperature Mode</button>
       <button id="tempOrLight" onclick="tempOrLight()">Temperature or Phototransistor</button>
       <button id="tempAndLight" onclick="tempAndLight()">Temperature and Phototransistor</button>
 
@@ -47,34 +47,36 @@
             }
          });
 
-         // When phototransistor is clicked
-         function phototransistor(){
-            document.getElementById("mode").innerHTML = "Mode: Phototrasistor";
-            socket.emit('lights', { "status":"1" });
-         }
-
          // When potentiometer is clicked
          function potentiometer(){
             document.getElementById("mode").innerHTML = "Mode: Potentiometer";
-            socket.emit('lights', { "status":"0" });
+            socket.emit('modeSelector', { "status":"0" });
+         }
+
+         // When phototransistor is clicked
+         function phototransistor(){
+            document.getElementById("mode").innerHTML = "Mode: Phototrasistor";
+            socket.emit('modeSelector', { "status":"1" });
          }
 
          // When temperature is clicked
          function temperature(){
             document.getElementById("mode").innerHTML = "Mode: Temperature";
-            socket.emit('lights', {"status":"2"});
+            socket.emit('modeSelector', {"status":"2"});
          }
 
+         // When teperature or photransistor is clicked
          function tempOrLight(){
             document.getElementById("mode").innerHTML = "Mode: Temperature or Light";
-            socket.emit('lights', {"status":"3"});
+            socket.emit('modeSelector', {"status":"3"});
          }
 
+         // When temperature and phototransistor is clicked
          function tempAndLight(){
             document.getElementById("mode").innerHTML = "Mode: Temperature and Light";
-            socket.emit('lights', {"status":"4"});
+            socket.emit('modeSelector', {"status":"4"});
          }
-
+         
 
          // Setting the potentiometer threshold
          var sendTextButton = document.getElementById("send-text");
@@ -104,7 +106,7 @@
             color:white;
          }
          
-         #lightOn, #lightOff, #lightMiddle, #tempOrLight, #tempAndLight{
+         #light, #dial, #temp, #tempOrLight, #tempAndLight{
             background-color:rgb(255, 255, 255);
             color:rgb(82, 82, 82);
             border-radius:5px;

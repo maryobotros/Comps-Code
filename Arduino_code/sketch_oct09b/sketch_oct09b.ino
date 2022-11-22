@@ -25,20 +25,7 @@ void setup() {
 
 void loop() {
   // Reading in real time
-  if(x == 1){
-    digitalWrite(lightPin, HIGH);
-    
-    lightVal = analogRead(lightSensor);
-    if(lightVal > 600){
-       myServo.write(180);
-       Serial.println("Open"); // Comment out in order to be able to be able to debug
-     }
-     else{
-       myServo.write(0);
-       Serial.println("Closed"); // Comment out in order to be able to be able to debug
-     }
-  }
-  else if(x == 0){
+  if(x == 0){
     digitalWrite(lightPin, LOW);
 
     potVal = analogRead(potPin);
@@ -58,6 +45,19 @@ void loop() {
     else if(angle < 90){
       Serial.println("Closed"); // Comment out in order to be able to be able to debug
     }
+  }
+  else if(x == 1){
+    digitalWrite(lightPin, HIGH);
+    
+    lightVal = analogRead(lightSensor);
+    if(lightVal > 600){
+       myServo.write(180);
+       Serial.println("Open"); // Comment out in order to be able to be able to debug
+     }
+     else{
+       myServo.write(0);
+       Serial.println("Closed"); // Comment out in order to be able to be able to debug
+     }
   }
   else if(x == 2){
     digitalWrite(lightPin, LOW);
@@ -81,42 +81,6 @@ void loop() {
     delay(1000);  
   }
   else if(x == 3){
-    potVal = analogRead(potPin);
-
-    angle = map(potVal, 0, 1023, 0, 180);
-
-    myServo.write(angle);
-    delay(15);
-
-    if(angle >= threshold){
-      Serial.println("Open"); // Comment out in order to be able to be able to debug
-    }
-    else if(angle < threshold){
-      Serial.println("Closed"); // Comment out in order to be able to be able to debug
-    }
-
-    delay(100);
-  }
-  else if(x == 4){
-    Serial.println("Mode: Temperature cutom");
-    tempVal = analogRead(tempSensor);
-    voltage = (tempVal / 1024.0) * 5.0;
-    tempInC = (voltage - .5) * 100;
-    tempInF = (tempInC * 1.8) + 32;
-    Serial.println(tempInF);
-      
-    if(tempInF >= tempThreshold){
-      myServo.write(0);
-      Serial.println("Closed"); // Comment out in order to be able to be able to debug
-    }
-    else{
-      myServo.write(180);
-      Serial.println("Open"); // Comment out in order to be able to be able to debug
-    }
-
-    delay(1000);
-  }
-  else if(x == 5){
     Serial.println("Mode: Temperature or Light");
     
     // Get the temperature
@@ -141,7 +105,7 @@ void loop() {
 
     delay(1000);
   }
-  else if(x == 6){
+  else if(x == 4){
     Serial.println("Mode: Temperature and Light");
     
     // Get the temperature
@@ -166,6 +130,42 @@ void loop() {
 
     delay(1000);
   }
+  else if(x == 5){
+    potVal = analogRead(potPin);
+
+    angle = map(potVal, 0, 1023, 0, 180);
+
+    myServo.write(angle);
+    delay(15);
+
+    if(angle >= threshold){
+      Serial.println("Open"); // Comment out in order to be able to be able to debug
+    }
+    else if(angle < threshold){
+      Serial.println("Closed"); // Comment out in order to be able to be able to debug
+    }
+
+    delay(100);
+  }
+  else if(x == 6){
+    Serial.println("Mode: Temperature cutom");
+    tempVal = analogRead(tempSensor);
+    voltage = (tempVal / 1024.0) * 5.0;
+    tempInC = (voltage - .5) * 100;
+    tempInF = (tempInC * 1.8) + 32;
+    Serial.println(tempInF);
+      
+    if(tempInF >= tempThreshold){
+      myServo.write(0);
+      Serial.println("Closed"); // Comment out in order to be able to be able to debug
+    }
+    else{
+      myServo.write(180);
+      Serial.println("Open"); // Comment out in order to be able to be able to debug
+    }
+
+    delay(1000);
+  }
   
   
 
@@ -179,21 +179,7 @@ void loop() {
 
 //    Serial.println(receivedString);
 
-    if(receivedString == "1"){
-      x = 1;
-      digitalWrite(lightPin, HIGH);
-      Serial.println("Mode: Phototransisor");
-      
-      lightVal = analogRead(lightSensor);
-      if(lightVal > 600){
-         myServo.write(180);
-       }
-       else{
-        myServo.write(0);
-//        Serial.println("Closed");
-      }
-    }
-    else if (receivedString == "0"){
+    if(receivedString == "0"){
       x = 0;
       digitalWrite(lightPin, LOW);
       Serial.println("Mode: Potentiometer");
@@ -208,6 +194,20 @@ void loop() {
 
       myServo.write(angle);
       delay(15);
+    }
+    else if (receivedString == "1"){
+      x = 1;
+      digitalWrite(lightPin, HIGH);
+      Serial.println("Mode: Phototransisor");
+      
+      lightVal = analogRead(lightSensor);
+      if(lightVal > 600){
+         myServo.write(180);
+       }
+       else{
+        myServo.write(0);
+//        Serial.println("Closed");
+      }
     }
     else if(receivedString == "2"){
       x = 2;
@@ -230,7 +230,7 @@ void loop() {
       delay(1000);
     }
     else if(receivedString == "3"){
-      x = 5;
+      x = 3;
       Serial.println("Mode: Temperature or Light");
 
       // Get the temperature
@@ -251,7 +251,7 @@ void loop() {
       }
     }
     else if(receivedString == "4"){
-      x = 6;
+      x = 4;
       Serial.println("Mode: Temperature and Light");
 
       // Get the temperature
@@ -272,11 +272,11 @@ void loop() {
       }
     }
     else if(receivedString.substring(0, 1) == "P"){
-      x = 3;
+      x = 5;
       threshold = receivedString.substring(2, 4).toInt();
     }
     else if(receivedString.substring(0, 1) == "T"){
-      x = 4;
+      x = 6;
       tempThreshold = receivedString.substring(2, 4).toInt();
     }
   }

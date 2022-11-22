@@ -29,7 +29,7 @@ var io = require('socket.io').listen(app);
 io.on('connection', function(socket) {
     console.log('Node is listening to port');
     
-    socket.on('lights',function(data){
+    socket.on('modeSelector',function(data){
         console.log( data );
         port.write( data.status );
     });
