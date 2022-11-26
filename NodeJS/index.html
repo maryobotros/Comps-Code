@@ -27,8 +27,14 @@
 
       <!-- Adjust settings for the temperature -->
       <div>
-         <input id="input-temp" type="text" placeholder="Enter temperature threshold" maslength="32">
+         <input id="input-temp" type="text" placeholder="Enter temperature threshold" maxlength="32">
          <input id="send-temp" type="submit" value="Set temperature threshold"> 
+      </div>
+
+      <!-- Adjust settings for the upper limit -->
+      <div>
+         <input id="input-upper" type="text" placeholder="Enter the upper limit" maxlength="32">
+         <input id="send-upper" type="submit" value="Set upper limit">
       </div>
 
       <script>
@@ -76,7 +82,6 @@
             document.getElementById("mode").innerHTML = "Mode: Temperature and Light";
             socket.emit('modeSelector', {"status":"4"});
          }
-         
 
          // Setting the potentiometer threshold
          var sendTextButton = document.getElementById("send-text");
@@ -92,6 +97,14 @@
          sendTempButton.addEventListener("click", function(){
             var sendTemp = document.getElementById("input-temp").value;
             socket.emit('input-temp', sendTemp)
+         });
+
+         // Setting the upper limit
+         var sendUpperButton = document.getElementById("send-upper");
+
+         sendUpperButton.addEventListener("click", function(){
+            var sendUpper = document.getElementById("input-upper").value;
+            socket.emit('input-upper', sendUpper)
          });
 
       </script>
@@ -113,7 +126,7 @@
             border-color:gray;
          }
 
-         #mode, #status, #input-text, #send-text, #input-temp, #send-temp{
+         #mode, #status, #input-text, #send-text, #input-temp, #send-temp, #input-upper, #send-upper{
             color:white;
          }
       </style>

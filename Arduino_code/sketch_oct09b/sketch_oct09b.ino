@@ -17,6 +17,9 @@ float tempInF;
 int threshold;
 int tempThreshold;
 
+int lowerLimit;
+int upperLimit;
+
 void setup() {
   pinMode(lightPin, OUTPUT);
   Serial.begin(9600);
@@ -166,6 +169,25 @@ void loop() {
 
     delay(1000);
   }
+  else if(x == 7){
+    Serial.println("Mode: Upper limit");
+
+    digitalWrite(lightPin, HIGH);
+    
+    lightVal = analogRead(lightSensor);
+    if(lightVal > 600){
+       myServo.write(upperLimit);
+       Serial.println(upperLimit);
+       Serial.println("Open"); // Comment out in order to be able to be able to debug
+     }
+     else{
+       myServo.write(lowerLimit);
+       Serial.println(lowerLimit);
+       Serial.println("Closed"); // Comment out in order to be able to be able to debug
+     }
+     
+     delay(1000);
+  }
   
   
 
@@ -279,5 +301,11 @@ void loop() {
       x = 6;
       tempThreshold = receivedString.substring(2, 4).toInt();
     }
+    else if(receivedString.substring(0, 1) == "U"){
+      x = 7;
+      lowerLimit = receivedString.substring(2, 4).toInt();
+      upperLimit = receivedString.substring(5, 8).toInt();
+    }
+    
   }
 }

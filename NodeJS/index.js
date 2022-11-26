@@ -43,6 +43,11 @@ io.on('connection', function(socket) {
         port.write('T ' + data);
         console.log('T ' + data);
     });
+
+    socket.on('input-upper', function(data){
+        port.write('U ' + data);
+        console.log('U ' + data);
+    });    
 });
 
 parser.on('data', function(data){
