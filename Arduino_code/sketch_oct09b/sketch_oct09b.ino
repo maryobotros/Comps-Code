@@ -14,11 +14,11 @@ float voltage;
 float tempInC;
 float tempInF;
 
-int threshold;
-int tempThreshold;
+int threshold = 90;
+int tempThreshold = 90.0;
+int upperLimit = 180;
+int lowerLimit = 0;
 
-int lowerLimit;
-int upperLimit;
 
 void setup() {
   pinMode(lightPin, OUTPUT);
@@ -42,10 +42,10 @@ void loop() {
     myServo.write(angle);
     delay(15);
 
-    if(angle >= 90){
+    if(angle >= threshold){
       Serial.println("Open"); // Comment out in order to be able to be able to debug
     }
-    else if(angle < 90){
+    else if(angle < threshold){
       Serial.println("Closed"); // Comment out in order to be able to be able to debug
     }
   }
@@ -54,13 +54,17 @@ void loop() {
     
     lightVal = analogRead(lightSensor);
     if(lightVal > 600){
-       myServo.write(180);
+       myServo.write(upperLimit);
+       Serial.println(upperLimit);
        Serial.println("Open"); // Comment out in order to be able to be able to debug
      }
      else{
-       myServo.write(0);
+       myServo.write(lowerLimit);
+       Serial.println(lowerLimit);
        Serial.println("Closed"); // Comment out in order to be able to be able to debug
      }
+
+     delay(1000);
   }
   else if(x == 2){
     digitalWrite(lightPin, LOW);
@@ -72,12 +76,14 @@ void loop() {
     tempInF = (tempInC * 1.8) + 32;
     Serial.println(tempInF);
   
-    if(tempInF >= 90.0){
-      myServo.write(0);
+    if(tempInF >= tempThreshold){
+      myServo.write(lowerLimit);
+      Serial.println(lowerLimit);
       Serial.println("Closed"); // Comment out in order to be able to be able to debug
     }
     else{
-      myServo.write(180);
+      myServo.write(upperLimit);
+      Serial.println(upperLimit);
       Serial.println("Open"); // Comment out in order to be able to be able to debug
     }
 
@@ -97,12 +103,14 @@ void loop() {
     lightVal = analogRead(lightSensor);
 
     // Check temperature and light
-    if(tempInF >= 90.0 || lightVal > 600){
-       myServo.write(0);
+    if(tempInF >= tempThreshold || lightVal < 600){
+       myServo.write(lowerLimit);
+       Serial.println(lowerLimit);
        Serial.println("Closed"); // Comment out in order to be able to be able to debug
      }
      else{
-      myServo.write(180);
+      myServo.write(upperLimit);
+      Serial.println(upperLimit);
       Serial.println("Open"); // Comment out in order to be able to be able to debug
     }
 
@@ -122,12 +130,14 @@ void loop() {
     lightVal = analogRead(lightSensor);
 
     // Check temperature and light
-    if(tempInF >= 90.0 && lightVal > 600){
-       myServo.write(0);
+    if(tempInF >= tempThreshold && lightVal > 600){
+       myServo.write(lowerLimit);
+       Serial.println(lowerLimit);
        Serial.println("Closed"); // Comment out in order to be able to be able to debug
      }
      else{
-      myServo.write(180);
+      myServo.write(upperLimit);
+      Serial.println(upperLimit);
       Serial.println("Open"); // Comment out in order to be able to be able to debug
     }
 
@@ -294,15 +304,15 @@ void loop() {
       }
     }
     else if(receivedString.substring(0, 1) == "P"){
-      x = 5;
+//      x = 5;
       threshold = receivedString.substring(2, 4).toInt();
     }
     else if(receivedString.substring(0, 1) == "T"){
-      x = 6;
+//      x = 6;
       tempThreshold = receivedString.substring(2, 4).toInt();
     }
     else if(receivedString.substring(0, 1) == "U"){
-      x = 7;
+//      x = 7;
       lowerLimit = receivedString.substring(2, 4).toInt();
       upperLimit = receivedString.substring(5, 8).toInt();
     }

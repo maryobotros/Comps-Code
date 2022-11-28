@@ -26,15 +26,24 @@
       </div>
 
       <!-- Adjust settings for the temperature -->
+      </br>
       <div>
          <input id="input-temp" type="text" placeholder="Enter temperature threshold" maxlength="32">
          <input id="send-temp" type="submit" value="Set temperature threshold"> 
       </div>
 
       <!-- Adjust settings for the upper limit -->
+      </br>
       <div>
          <input id="input-upper" type="text" placeholder="Enter the upper limit" maxlength="32">
          <input id="send-upper" type="submit" value="Set upper limit">
+      </div>
+
+      <!-- Adjust settings for lower limit -->
+      </br>
+      <div>
+         <input id="input-pot" type="text" placeholder="Enter potentiometer threshold" maxlength="32">
+         <input id="send-pot" type="submit" value="Set potentiometer threshold">
       </div>
 
       <script>
@@ -105,6 +114,14 @@
          sendUpperButton.addEventListener("click", function(){
             var sendUpper = document.getElementById("input-upper").value;
             socket.emit('input-upper', sendUpper)
+         });
+
+         // Setting the lower limit
+         var sendLowerButton = document.getElementById("send-lower");
+
+         sendLowerButton.addEventListener("click", function(){
+            var sendLower = document.getElementById("input-lower").value;
+            socket.emit('input-lower', sendText)
          });
 
       </script>

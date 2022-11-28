@@ -47,7 +47,12 @@ io.on('connection', function(socket) {
     socket.on('input-upper', function(data){
         port.write('U ' + data);
         console.log('U ' + data);
-    });    
+    });
+    
+    socket.on('input-lower', function(data){
+        port.write('L ' + data);
+        console.log('L ' + data);
+    });
 });
 
 parser.on('data', function(data){
