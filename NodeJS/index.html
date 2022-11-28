@@ -8,6 +8,9 @@
 
       <h1 id="title">Smart Blinds</h1>
 
+      <!-- Modes heading -->
+      <h3 id="modesHeading">Modes</h3>
+
       <!-- Buttons for the different modes  -->
       <button id="dial" onclick="potentiometer()">Potentiometer Mode</button>
       <button id="light" onclick="phototransistor()">Phototransistor Mode</button>
@@ -18,6 +21,9 @@
       <!-- Status indicators -->
       <p id="mode">Mode: Select a mode</p> 
       <p id="status"></p> 
+
+      <!-- Settings heading -->
+      <h3 id="settingsHeading">Settings</h3>
 
       <!-- Adjust settings for the potentiometer -->
       <div>
@@ -35,15 +41,15 @@
       <!-- Adjust settings for the upper limit -->
       </br>
       <div>
-         <input id="input-upper" type="text" placeholder="Enter the upper limit" maxlength="32">
+         <input id="input-upper" type="text" placeholder="Enter upper limit" maxlength="32">
          <input id="send-upper" type="submit" value="Set upper limit">
       </div>
 
       <!-- Adjust settings for lower limit -->
       </br>
       <div>
-         <input id="input-pot" type="text" placeholder="Enter potentiometer threshold" maxlength="32">
-         <input id="send-pot" type="submit" value="Set potentiometer threshold">
+         <input id="input-lower" type="text" placeholder="Enter lower limit" maxlength="32">
+         <input id="send-lower" type="submit" value="Set lower limit">
       </div>
 
       <script>
@@ -143,7 +149,7 @@
             border-color:gray;
          }
 
-         #mode, #status, #input-text, #send-text, #input-temp, #send-temp, #input-upper, #send-upper{
+         #mode, #status, #modesHeading, #settingsHeading, #input-text, #send-text, #input-temp, #send-temp, #input-upper, #send-upper, #input-lower, #send-lower{
             color:white;
          }
       </style>
