@@ -313,9 +313,12 @@ void loop() {
     }
     else if(receivedString.substring(0, 1) == "U"){
 //      x = 7;
-      lowerLimit = receivedString.substring(2, 4).toInt();
-      upperLimit = receivedString.substring(5, 8).toInt();
+//      lowerLimit = receivedString.substring(2, 4).toInt();
+//      upperLimit = receivedString.substring(5, 8).toInt();
+
+       upperLimit = receivedString.substring(2, 5).toInt();
     }
-    
-  }
+    else if(receivedString.substring(0, 1) == "L")
+       lowerLimit = receivedString.substring(2, 4).toInt();
+    }
 }

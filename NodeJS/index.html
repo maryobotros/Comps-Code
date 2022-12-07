@@ -12,8 +12,10 @@
       <h3 id="statusHeading">Status</h3>
 
       <!-- Status indicators -->
-      <p id="mode">Mode: Select a mode</p> 
-      <p id="status"></p>
+      <div>
+         <p id="mode">Mode: Select a mode</p> 
+         <p id="status"></p>
+      </div>
       </br>
 
       <!-- Modes heading -->
@@ -49,14 +51,14 @@
       <!-- Adjust settings for the upper limit -->
       </br>
       <div>
-         <input id="input-upper" type="text" placeholder="Enter upper limit" maxlength="32">
+         <input id="input-upper" type="text" placeholder="100-180" maxlength="32">
          <input id="send-upper" type="submit" value="Set upper limit">
       </div>
 
       <!-- Adjust settings for lower limit -->
       </br>
       <div>
-         <input id="input-lower" type="text" placeholder="Enter lower limit" maxlength="32">
+         <input id="input-lower" type="text" placeholder="0-99" maxlength="32">
          <input id="send-lower" type="submit" value="Set lower limit">
       </div>
 
@@ -135,7 +137,7 @@
 
          sendLowerButton.addEventListener("click", function(){
             var sendLower = document.getElementById("input-lower").value;
-            socket.emit('input-lower', sendText)
+            socket.emit('input-lower', sendLower)
          });
 
       </script>
