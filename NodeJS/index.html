@@ -8,20 +8,28 @@
 
       <h1 id="title">Smart Blinds</h1>
 
+      <!-- Status heading -->
+      <h3 id="statusHeading">Status</h3>
+
+      <!-- Status indicators -->
+      <p id="mode">Mode: Select a mode</p> 
+      <p id="status"></p>
+      </br>
+
       <!-- Modes heading -->
       <h3 id="modesHeading">Modes</h3>
 
       <!-- Buttons for the different modes  -->
-      <button id="dial" onclick="potentiometer()">Potentiometer Mode</button>
-      <button id="light" onclick="phototransistor()">Phototransistor Mode</button>
-      <button id="temp" onclick="temperature()">Temperature Mode</button>
-      <button id="tempOrLight" onclick="tempOrLight()">Temperature or Phototransistor</button>
-      <button id="tempAndLight" onclick="tempAndLight()">Temperature and Phototransistor</button>
-
-      <!-- Status indicators -->
-      <p id="mode">Mode: Select a mode</p> 
-      <p id="status"></p> 
-
+      <div>
+         <button id="dial" onclick="potentiometer()">Potentiometer Mode</button>
+         <button id="light" onclick="phototransistor()">Phototransistor Mode</button>
+         <button id="temp" onclick="temperature()">Temperature Mode</button>
+         <button id="tempOrLight" onclick="tempOrLight()">Temperature or Phototransistor</button>
+         <button id="tempAndLight" onclick="tempAndLight()">Temperature and Phototransistor</button>
+      </div>
+      </br>
+      
+       
       <!-- Settings heading -->
       <h3 id="settingsHeading">Settings</h3>
 
@@ -149,7 +157,7 @@
             border-color:gray;
          }
 
-         #mode, #status, #modesHeading, #settingsHeading, #input-text, #send-text, #input-temp, #send-temp, #input-upper, #send-upper, #input-lower, #send-lower{
+         #mode, #status, #statusHeading, #modesHeading, #settingsHeading, #input-text, #send-text, #input-temp, #send-temp, #input-upper, #send-upper, #input-lower, #send-lower{
             color:white;
          }
       </style>
