@@ -144,59 +144,20 @@ void loop() {
     delay(1000);
   }
   else if(x == 5){
-    potVal = analogRead(potPin);
-
-    angle = map(potVal, 0, 1023, 0, 180);
-
-    myServo.write(angle);
-    delay(15);
-
-    if(angle >= threshold){
-      Serial.println("Open"); // Comment out in order to be able to be able to debug
-    }
-    else if(angle < threshold){
-      Serial.println("Closed"); // Comment out in order to be able to be able to debug
-    }
-
-    delay(100);
-  }
-  else if(x == 6){
-    Serial.println("Mode: Temperature cutom");
-    tempVal = analogRead(tempSensor);
-    voltage = (tempVal / 1024.0) * 5.0;
-    tempInC = (voltage - .5) * 100;
-    tempInF = (tempInC * 1.8) + 32;
-    Serial.println(tempInF);
-      
-    if(tempInF >= tempThreshold){
-      myServo.write(0);
-      Serial.println("Closed"); // Comment out in order to be able to be able to debug
-    }
-    else{
-      myServo.write(180);
-      Serial.println("Open"); // Comment out in order to be able to be able to debug
-    }
+    Serial.println("Mode: Open");
+    
+    myServo.write(upperLimit);
+    Serial.println("Open"); // Comment out in order to be able to be able to debug
 
     delay(1000);
   }
-  else if(x == 7){
-    Serial.println("Mode: Upper limit");
-
-    digitalWrite(lightPin, HIGH);
+  else if(x == 6){
+    Serial.println("Mode: Close");
     
-    lightVal = analogRead(lightSensor);
-    if(lightVal > 600){
-       myServo.write(upperLimit);
-       Serial.println(upperLimit);
-       Serial.println("Open"); // Comment out in order to be able to be able to debug
-     }
-     else{
-       myServo.write(lowerLimit);
-       Serial.println(lowerLimit);
-       Serial.println("Closed"); // Comment out in order to be able to be able to debug
-     }
-     
-     delay(1000);
+    myServo.write(lowerLimit);
+    Serial.println("Closed"); // Comment out in order to be able to be able to debug
+    
+    delay(1000);
   }
   
   
@@ -303,19 +264,19 @@ void loop() {
         myServo.write(180);
       }
     }
+    else if(receivedString == "5"){
+      x = 5;
+    }
+    else if(receivedString == "6"){
+      x = 6;
+    }
     else if(receivedString.substring(0, 1) == "P"){
-//      x = 5;
       threshold = receivedString.substring(2, 4).toInt();
     }
     else if(receivedString.substring(0, 1) == "T"){
-//      x = 6;
       tempThreshold = receivedString.substring(2, 4).toInt();
     }
     else if(receivedString.substring(0, 1) == "U"){
-//      x = 7;
-//      lowerLimit = receivedString.substring(2, 4).toInt();
-//      upperLimit = receivedString.substring(5, 8).toInt();
-
        upperLimit = receivedString.substring(2, 5).toInt();
     }
     else if(receivedString.substring(0, 1) == "L")

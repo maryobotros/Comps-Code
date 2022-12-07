@@ -34,6 +34,7 @@ io.on('connection', function(socket) {
         port.write( data.status );
     });
 
+
     socket.on('input-text', function(data){
         port.write('P ' + data);
         console.log('P ' + data);
