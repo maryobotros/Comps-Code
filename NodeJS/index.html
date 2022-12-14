@@ -45,15 +45,15 @@
 
       <!-- Adjust settings for the potentiometer -->
       <div>
-         <input id="input-text" type="text" placeholder="Enter potentiometer threshold" maxlength="32">
+         <input id="input-text" type="text" placeholder="10-60" maxlength="32">
          <input id="send-text" type="submit" value="Set potentiometer threshold">
       </div>
 
       <!-- Adjust settings for the temperature -->
       </br>
       <div>
-         <input id="input-temp" type="text" placeholder="Enter temperature threshold" maxlength="32">
-         <input id="send-temp" type="submit" value="Set temperature threshold"> 
+         <input id="input-temp" type="text" placeholder="10-130" maxlength="32">
+         <input id="send-temp" type="submit" value="Set temperature (Farenheit) threshold"> 
       </div>
 
       <!-- Adjust settings for the upper limit -->
@@ -116,12 +116,13 @@
             socket.emit('modeSelector', {"status":"4"});
          }
 
-         // When open is clicked
+         // When open blinds is clicked
          function openBlinds(){
             
             socket.emit('modeSelector', {"status":"5"});
          }
 
+         // When close blinds is clicked
          function closeBlinds(){
             
             socket.emit('modeSelector', {"status":"6"});
