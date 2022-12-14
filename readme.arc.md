@@ -2,11 +2,21 @@
 # Architecture Overview
 There are three main files in the project, index.ejs, index.html, and sketch_oct09b.ino. These files communicte together in order to send data between the webapp and the Arduino robot.
 
+Simplied implified overview of the purpose of each file: 
+- `index.html`: code for webapp 
+- `sketch_oct09.ino`: code for the Arduino robot
+- `index.ejs`: code that passes information between the webapp and the Arduino robot over the Node.js server
+
+The webpage can pass information to the Arduino Robot through a Node.js server. 
+- Information is passed back and forth between the webpage and Node.js using Socket.io
+- Infomrtion is passed back and forth between the Arduino robot and Node.js using Serialport
+![Architecture](Architecture.png)
+
 
 WEBAPP <-(socket.io)-> NODE.JS <-(serialport)-> ARDUINO ROBOT
 
 ## index.ejs
-An index.js file is first made and this file will listen to the serialport and console.log any information that it receives.
+The `index.ejs` file listens for a message from the Arduino over the USD port and then passes a message onto the HTML/JavaScript using Socket.io. 
 ```javascript
 // Start the server using http library and file system library to grab the index page
 var http = require('http');
@@ -97,7 +107,7 @@ app.listen(3000);
 ```
 
 ## index.html
-```html
+```javascript
 <!doctype html>
 <html>
    <head>
