@@ -675,17 +675,17 @@ app.listen(3000);
 1. Open a console window and navigate to the folder you are using for the project.
 2. At the console prompt type `npm init`.
 4. Change the default answers or press enter to accept them. Keep the default entry point as index.js.
-5. Open up the project folder in a code editor. Open the root folder for the application, as you want to be able to see all the files and folders connected to the project. at the moment there you should see one file package.json. This is where you will see all the packages being installed. 
+5. Open up the project folder in a code editor. Open the root folder for the application, as you want to be able to see all the files and folders connected to the project. at the moment there you should see a file package.json. This is where you will see all the packages being installed. 
 6. Open the console window and type `npm install socket.io@1.7.3 -save` to install socket.io
 7. If you have a Mac: In the console window type `npm install serialport@9.0.1 --save` to install serialport
-8. If you have a PC: In the command terminal type `npm install serialport@9.0.1 --build-from-source` to install serialport
-9. If you look at your package.json file and make sure teh dependencies are updates with the versions of socket.io and serialport that you installed.
+8. If you have a PC: In the command line type `npm install serialport@9.0.1 --build-from-source` to install serialport
+9. If you look at your package.json file you should be able to see the dependencies are updated with the versions of socket.io and serialport that you installed.
 
 > Note: These dependencies are written by different people and are updated at different times. These updates can break your code. Semantic versioning is used to track the changes. This means that each number of a version number has a particular meaning. The version number is made up of three numbers separated with a full stop. The numbers increase with each new version and each number represents a different kind of update. If you install the versions of socket.io and serialport described here and you receive messages that the code is depricated, you may need to use the most updated versions. You can do this by adding `*` at the end when you use npm install. For example: `npm install socket.io@*`
 
 ## Executing all the code
 1. Open your Arduino IDE and upload the code to your Arduino using the right arrow at the top left corner.
-2. Using the Terminal start your Node.js app using `node index.js`.
+2. Using the Terminal start your Node.js server using `node index.js`.
 3. Open up a browser and enter the URL `http://localhost:3000/`.
 4. The robot and webpage are now in communication and the project is running.
 
