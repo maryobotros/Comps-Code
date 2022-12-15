@@ -12,11 +12,10 @@ The webpage can pass information to the Arduino Robot through a Node.js server.
 - Infomrtion is passed back and forth between the Arduino robot and Node.js using Serialport
 ![Architecture](Architecture.png)
 
-
-WEBAPP <-(socket.io)-> NODE.JS <-(serialport)-> ARDUINO ROBOT
-
 ## index.ejs
-The `index.ejs` file listens for a message from the Arduino over the USD port and then passes a message onto the HTML/JavaScript using Socket.io. 
+The `index.ejs` file listens for a message from the Arduino over the serial port and then passes a message onto the HTML/JavaScript using Socket.io. 
+- This file executes a function using Socket.io to send a unique id to Arduino, indicating which mode to use for the robot. It also uses socket.io to to receive data that is displayed on the webpage such as the status of the robot.
+- This file uses the serialport to send and recieve data from the Arduino.
 ```javascript
 // Start the server using http library and file system library to grab the index page
 var http = require('http');
@@ -107,6 +106,10 @@ app.listen(3000);
 ```
 
 ## index.html
+This is the file for the webpage. When a button is clicked on the webpage, it calls the appropriate function in the index.ejs using socket.io. 
+- This function will send a unique id to the Arduino, letting the Arduino know which mode to use i.e. which sensors to use.
+- This file also reads data coming from the Arduino using socket.io to indicate the status of the blinds on the webpage
+
 ```javascript
 <!doctype html>
 <html>
@@ -184,14 +187,18 @@ app.listen(3000);
          // Initializing socket variable
          var socket = io();
 
-         // Logging all data gathered from socket
+         // Logging all data gathered from socket to change status of blinds
          socket.on('data', function(data){
             console.log(data);
 
+            // If the data is "Closed"
             if(data == "Closed"){
+                // Set the blind status to "Closed"
                document.getElementById("status").innerHTML = "Status: Closed";
             }
+            // Otherwise is if the data is "Open"
             else if(data == "Open"){
+                // Set th eblind status to "Open"
                document.getElementById("status").innerHTML = "Status: Open";
             }
          });
@@ -299,6 +306,11 @@ app.listen(3000);
 ```
 
 ## skecth_oct09b.ino
+This is the file for the Arduino robot.
+- It secives data using Serialport which indicates to it which mode to use and what to set the threshold and limit variables
+- It also sends data using Serialport, which is logged to the serial monitor and is sent to the webpage, such as the status of the blinds ("Open" or "Closed")
+- It has a main loop called loop() that runs constantly. The code for the different modes is executed within this main loop
+- There is another loop that is within the main loop that is a while loop which reads all the data that is coming in from the serialport and uses the variable x to control which mode is executed outside of this while loop, but within the main loop.
 ```c++
 // Servo Object
 # include <Servo.h>
