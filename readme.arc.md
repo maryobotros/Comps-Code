@@ -1,15 +1,15 @@
 
 # Architecture Overview
-There are three main files in the project, index.ejs, index.html, and sketch_oct09b.ino. These files communicte together in order to send data between the webapp and the Arduino robot.
+There are three main files in the project, index.ejs, index.html, and sketch_oct09b.ino. These files communicate together in order to send data between the webapp and the Arduino robot.
 
-Simplied implified overview of the purpose of each file: 
+Purpose of each file: 
 - `index.html`: code for webapp 
 - `sketch_oct09.ino`: code for the Arduino robot
 - `index.ejs`: code that passes information between the webapp and the Arduino robot over the Node.js server
 
 The webpage can pass information to the Arduino Robot through a Node.js server. 
 - Information is passed back and forth between the webpage and Node.js using Socket.io
-- Infomrtion is passed back and forth between the Arduino robot and Node.js using Serialport
+- Information is passed back and forth between the Arduino robot and Node.js using Serialport
 ![Architecture](Architecture.png)
 
 ## index.ejs
@@ -106,8 +106,8 @@ app.listen(3000);
 ```
 
 ## index.html
-This is the file for the webpage. When a button is clicked on the webpage, it calls the appropriate function in the index.ejs using socket.io. 
-- This function will send a unique id to the Arduino, letting the Arduino know which mode to use i.e. which sensors to use.
+This `index.html` file handles everything for the webpage including HTML, HavaScript and CSS. When a button is clicked on the webpage, it calls the appropriate function in the index.ejs using socket.io. 
+- Thhe function in the index.ejs file will send a unique id to the Arduino, letting the Arduino know which mode to use i.e. which sensors to use.
 - This file also reads data coming from the Arduino using socket.io to indicate the status of the blinds on the webpage
 
 ```javascript
@@ -306,11 +306,11 @@ This is the file for the webpage. When a button is clicked on the webpage, it ca
 ```
 
 ## skecth_oct09b.ino
-This is the file for the Arduino robot.
-- It secives data using Serialport which indicates to it which mode to use and what to set the threshold and limit variables
+`sketch_oct9b.ino` is the file for the Arduino robot.
+- It receives data using Serialport which indicates to it which mode to use and what to set the threshold and limit variables.
 - It also sends data using Serialport, which is logged to the serial monitor and is sent to the webpage, such as the status of the blinds ("Open" or "Closed")
-- It has a main loop called loop() that runs constantly. The code for the different modes is executed within this main loop
-- There is another loop that is within the main loop that is a while loop which reads all the data that is coming in from the serialport and uses the variable x to control which mode is executed outside of this while loop, but within the main loop.
+- It has a main loop called `loop()` that runs constantly. The code for the different modes is executed within this main loop
+- There is another loop that is within the main loop that is a while loop which reads all the data that is coming in from the serialport and uses the variable `x` to control which mode is executed outside of this while loop, but within the main loop.
 ```c++
 // Servo Object
 # include <Servo.h>
