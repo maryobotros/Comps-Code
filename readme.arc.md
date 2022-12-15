@@ -1,19 +1,19 @@
 
 # Architecture Overview
-There are three main files in the project, index.ejs, index.html, and sketch_oct09b.ino. These files communicate together in order to send data between the webapp and the Arduino robot.
+There are three main files in the project, index.js, index.html, and sketch_oct09b.ino. These files communicate together in order to send data between the webapp and the Arduino robot.
 
 Purpose of each file: 
 - `index.html`: code for webapp 
 - `sketch_oct09.ino`: code for the Arduino robot
-- `index.ejs`: code that passes information between the webapp and the Arduino robot over the Node.js server
+- `index.js`: code that passes information between the webapp and the Arduino robot over the Node.js server
 
 The webpage can pass information to the Arduino Robot through a Node.js server. 
 - Information is passed back and forth between the webpage and Node.js using Socket.io
 - Information is passed back and forth between the Arduino robot and Node.js using Serialport
 ![Architecture](Architecture.png)
 
-## index.ejs
-The `index.ejs` file listens for a message from the Arduino over the serial port and then passes a message onto the HTML/JavaScript using Socket.io. 
+## index.js
+The `index.js` file listens for a message from the Arduino over the serial port and then passes a message onto the HTML/JavaScript using Socket.io. 
 - This file executes a function using Socket.io to send a unique id to Arduino, indicating which mode to use for the robot. It also uses socket.io to to receive data that is displayed on the webpage such as the status of the robot.
 - This file uses the serialport to send and recieve data from the Arduino.
 ```javascript
@@ -106,8 +106,8 @@ app.listen(3000);
 ```
 
 ## index.html
-This `index.html` file handles everything for the webpage including HTML, HavaScript and CSS. When a button is clicked on the webpage, it calls the appropriate function in the index.ejs using socket.io. 
-- Thhe function in the index.ejs file will send a unique id to the Arduino, letting the Arduino know which mode to use i.e. which sensors to use.
+This `index.html` file handles everything for the webpage including HTML, HavaScript and CSS. When a button is clicked on the webpage, it calls the appropriate function in the index.js using socket.io. 
+- Thhe function in the index.js file will send a unique id to the Arduino, letting the Arduino know which mode to use i.e. which sensors to use.
 - This file also reads data coming from the Arduino using socket.io to indicate the status of the blinds on the webpage
 
 ```javascript
