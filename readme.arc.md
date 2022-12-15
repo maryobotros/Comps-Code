@@ -309,7 +309,7 @@ This `index.html` file handles everything for the webpage including HTML, HavaSc
 `sketch_oct9b.ino` is the file for the Arduino robot.
 - It receives data using Serialport which indicates to it which mode to use and what to set the threshold and limit variables.
 - It also sends data using Serialport, which is logged to the serial monitor and is sent to the webpage, such as the status of the blinds ("Open" or "Closed")
-- It has a main loop called `loop()` that runs constantly. The code for the different modes is executed within this main loop
+- It has a main loop `loop()` that runs constantly. The code for the different modes is executed within this main loop
 - There is another loop that is within the main loop that is a while loop which reads all the data that is coming in from the serialport and uses the variable `x` to control which mode is executed outside of this while loop, but within the main loop.
 ```c++
 // Servo Object
