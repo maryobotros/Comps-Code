@@ -3,10 +3,11 @@
 
 ## Requirements:
 * [Arduino Starter Kit](https://search.arduino.cc/search/?tab=&q=starter+kit) or the Arduino components that can be found in the component's list below
-* [Visual Studio Code](https://code.visualstudio.com/) or or any code editor
+* [Visual Studio Code](https://code.visualstudio.com/) or or any other code editor of your choice
 * [Arduino software IDE](https://create.arduino.cc/editor) 
 * [SerialPort NPM](https://www.npmjs.com/package/serialport)
 * [Socket.io](https://socket.io/)
+* [Node.js](https://nodejs.org/en/download/)
 
 ## Building the Circuit
 You will need the following components for the Arduino circuit:
@@ -374,7 +375,7 @@ void loop() {
 
 After adding the code, follow these steps to run it:
 1. Connect the Arduino board to your computer using a USB cable.
-2. You need to know the name of the serialport your Arduino is attached to. You can find the name of your serialport, it will look something like `/dev/tty.wchusbserialfa1410`. On a Mac using the Terminal and entering the following command:```ls /dev/{tty,cu}.*``` On a PC you can use the command line and the following command:```chgport```
+2. You need to know the name of the serialport your Arduino is attached to. You can find the name of your serialport. It will look something like `/dev/tty.wchusbserialfa1410`. On a Mac using the Terminal and entering the following command:```ls /dev/{tty,cu}.*``` On a PC you can use the command line and the following command:```chgport```
 3. In the Arduino IDE go to `Tools > Board` and select the serial port that your Arduino is connected to.
 4. To upload the code, press the `UPLOAD` toggle on the top left corner of the IDE, which is an arrow pointing to the right.
 
@@ -577,6 +578,7 @@ Open VSCode or your desired code editor and create an HTML file called `index.ht
 
 ## Node.js Server
 Create a file called `index.js` and add the following code:
+Note: Make sure to replace `'/dev/tty.usbmodem14101'` with your own serialport location
 ```javascript
 // Start the server using http library and file system library to grab the index page
 var http = require('http');
@@ -664,7 +666,29 @@ parser.on('data', function(data){
 })
 
 app.listen(3000);
+
+
 ```
+
+
+## Installing packages using npm
+1. Open a console window and navigate to the folder you are using for the project.
+2. At the console prompt type `npm init`.
+4. Change the default answers or press enter to accept them. Keep the default entry point as index.js.
+5. Open up the project folder in a code editor. Open the root folder for the application, as you want to be able to see all the files and folders connected to the project. at the moment there you should see one file package.json. This is where you will see all the packages being installed. 
+6. Open the console window and type `npm install socket.io@1.7.3 -save` to install socket.io
+7. If you have a Mac: In the console window type `npm install serialport@9.0.1 --save` to install serialport
+8. If you have a PC: In the command terminal type `npm install serialport@9.0.1 --build-from-source` to install serialport
+9. If you look at your package.json file and make sure teh dependencies are updates with the versions of socket.io and serialport that you installed.
+
+> Note: These dependencies are written by different people and are updated at different times. These updates can break your code. Semantic versioning is used to track the changes. This means that each number of a version number has a particular meaning. The version number is made up of three numbers separated with a full stop. The numbers increase with each new version and each number represents a different kind of update. If you install the versions of socket.io and serialport described here and you receive messages that the code is depricated, you may need to use the most updated versions. You can do this by adding `*` at the end when you use npm install. For example: `npm install socket.io@*`
+
+## Executing all the code
+1. Open your Arduino IDE and upload the code to your Arduino using the right arrow at the top left corner.
+2. Using the Terminal start your Node.js app using `node index.js`.
+3. Open up a browser and enter the URL `http://localhost:3000/`.
+4. The robot and webpage are now in communication and the project is running.
+
 
 
 
