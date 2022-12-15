@@ -578,7 +578,7 @@ Open VSCode or your desired code editor and create an HTML file called `index.ht
 
 ## Node.js Server
 Create a file called `index.js` and add the following code:
-Note: Make sure to replace `'/dev/tty.usbmodem14101'` with your own serialport location
+> Note: Make sure to replace `'/dev/tty.usbmodem14101'` with your own serialport location
 ```javascript
 // Start the server using http library and file system library to grab the index page
 var http = require('http');
