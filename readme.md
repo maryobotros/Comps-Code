@@ -578,7 +578,7 @@ Open VSCode or your desired code editor and create an HTML file called `index.ht
 
 ## Node.js Server
 Create a file called `index.js` and add the following code:
-> Note: Make sure to replace `'/dev/tty.usbmodem14101'` with your own serialport location
+> Note: Make sure to replace `'/dev/tty.usbmodem14101'` with your own serialport location that you previously found when you uploaded your Arduino code.
 ```javascript
 // Start the server using http library and file system library to grab the index page
 var http = require('http');
@@ -683,7 +683,7 @@ app.listen(3000);
 
 > Note: These dependencies are written by different people and are updated at different times. These updates can break your code. Semantic versioning is used to track the changes. This means that each number of a version number has a particular meaning. The version number is made up of three numbers separated with a full stop. The numbers increase with each new version and each number represents a different kind of update. If you install the versions of socket.io and serialport described here and you receive messages that the code is depricated, you may need to use the most updated versions. You can do this by adding `*` at the end when you use npm install. For example: `npm install socket.io@*`
 
-## Executing all the code
+## Launching the application
 1. Open your Arduino IDE and upload the code to your Arduino using the right arrow at the top left corner.
 2. Using the Terminal start your Node.js server using `node index.js`.
 3. Open up a browser and enter the URL `http://localhost:3000/`.
