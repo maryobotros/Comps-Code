@@ -1,5 +1,5 @@
 # Replication Instructions
-
+These are the instructions for how to execute this project. Make sure to put all files in the same folder. 
 
 ## Requirements:
 * [Arduino Starter Kit](https://search.arduino.cc/search/?tab=&q=starter+kit) or the Arduino components that can be found in the component's list below
